@@ -4,22 +4,37 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.ImageView
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.google.zxing.qrcode.encoder.Encoder
+import android.support.v4.app.NotificationCompat.getExtras
+
+
 
 class MyDialog : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.my_dialog)
-    val i = intent
-    val uri = i.getStringExtra("uri")
-    val qrCodeImage = generateQRCode(uri)
     val imageView = findViewById<ImageView>(R.id.image_view)
-    Log.v("URL", uri)
-    imageView.setImageBitmap(qrCodeImage)
+    val i = intent
+    val action = intent.action
+    if (action == Intent.ACTION_SEND) {
+      val extras = intent.extras
+      if (extras != null) {
+        val uri = extras.getCharSequence(Intent.EXTRA_TEXT).toString()
+        if (uri.isNotEmpty()) {
+          val qrCodeImage = generateQRCode(uri)
+          imageView.setImageBitmap(qrCodeImage)
+        }
+      }
+    } else {
+      val uri = i.getStringExtra("uri")
+      val qrCodeImage = generateQRCode(uri)
+      imageView.setImageBitmap(qrCodeImage)
+    }
   }
 
   // thanks: https://qiita.com/niusounds/items/302a97afabf1d469bc81

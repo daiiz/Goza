@@ -34,8 +34,7 @@ class MainActivity : AppCompatActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_main)
-    val uri = "https://scrapbox.io/shokai/Scrapbox%E3%81%AE%E9%96%8B%E7%99%BA_-_React_&_Websocket%E3%81%A7%E4%BD%9C%E3%82%8B%E3%83%AA%E3%82%A2%E3%83%AB%E3%82%BF%E3%82%A4%E3%83%A0Wiki"
-    // val uri = "https://scrapbox.io/daiiz/Nota%E3%82%A4%E3%83%B3%E3%82%BF%E3%83%BC%E3%83%B3%E3%81%AB%E5%8F%82%E5%8A%A0%E3%81%97%E3%81%A6Scrapbox%E3%82%92%E4%BD%9C%E3%81%A3%E3%81%A6%E3%81%8D%E3%81%BE%E3%81%97%E3%81%9F"
+    val uri = "https://scrapbox.io/"
 
     // builderを使う
     val builder = CustomTabsIntent.Builder()
