@@ -4,20 +4,16 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.widget.ImageView
 import com.google.zxing.qrcode.decoder.ErrorCorrectionLevel
 import com.google.zxing.qrcode.encoder.Encoder
-import android.support.v4.app.NotificationCompat.getExtras
 
 
-
-class MyDialog : Activity() {
+class QrActivity : Activity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    setContentView(R.layout.my_dialog)
+    setContentView(R.layout.activity_qr)
     val imageView = findViewById<ImageView>(R.id.image_view)
     val i = intent
     val action = intent.action
@@ -38,15 +34,10 @@ class MyDialog : Activity() {
   }
 
   // thanks: https://qiita.com/niusounds/items/302a97afabf1d469bc81
-  fun generateQRCode (text: String): Bitmap {
-    // QR codeのビットマトリクス
+  private fun generateQRCode (text: String): Bitmap {
     val qrCode = Encoder.encode(text, ErrorCorrectionLevel.L)
     val byteMatrix = qrCode.matrix
-
-    // QRコードのBitmapを生成
-    // ビットマトリクスのサイズに合わせた大きさで作成される
     val bitmap = Bitmap.createBitmap(byteMatrix.width, byteMatrix.height, Bitmap.Config.ARGB_8888)
-    // 各ピクセルを着色する
     for (y in 0 until byteMatrix.height) {
       for (x in 0 until byteMatrix.width) {
         val `val` = byteMatrix.get(x, y)
