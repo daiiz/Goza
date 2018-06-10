@@ -17,19 +17,15 @@ class QrActivity : Activity() {
     val imageView = findViewById<ImageView>(R.id.image_view)
     val i = intent
     val action = intent.action
-    if (action == Intent.ACTION_SEND) {
-      val extras = intent.extras
-      if (extras != null) {
-        val uri = extras.getCharSequence(Intent.EXTRA_TEXT).toString()
-        if (uri.isNotEmpty()) {
-          val qrCodeImage = generateQRCode(uri)
-          imageView.setImageBitmap(qrCodeImage)
-        }
+    if (action != Intent.ACTION_SEND) return
+
+    val extras = intent.extras
+    if (extras != null) {
+      val uri = extras.getCharSequence(Intent.EXTRA_TEXT).toString()
+      if (uri.isNotEmpty()) {
+        val qrCodeImage = generateQRCode(uri)
+        imageView.setImageBitmap(qrCodeImage)
       }
-    } else {
-      val uri = i.getStringExtra("uri")
-      val qrCodeImage = generateQRCode(uri)
-      imageView.setImageBitmap(qrCodeImage)
     }
   }
 
